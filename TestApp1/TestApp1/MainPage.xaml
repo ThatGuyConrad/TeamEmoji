@@ -11,11 +11,11 @@
         <StackLayout Spacing="10" Padding="10">
             <Button x:Name="takePhoto" Text="Take Photo"/>
             <Button x:Name="pickPhoto" Text="Pick Photo"/>
-            <Button x:Name="takeVideo" Text="Take Video"/>
-            <Button x:Name="pickVideo" Text="Pick Video"/>
             <Label Text="Save to Gallery"/>
             <Switch x:Name="saveToGallery" IsToggled="false" HorizontalOptions="Center"/>
-            <Label Text="Image will show here"/>
+            <Entry Text="Prediction Result" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" />
+            <Label x:Name="resultInfo" />
+            <Label x:Name="info" Text="Image will show here" />
             <Image x:Name="image"/>
             <Label Text=""/>
 

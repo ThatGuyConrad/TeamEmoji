@@ -8,6 +8,8 @@ using Android.Widget;
 using Android.OS;
 using Plugin.CurrentActivity;
 using Plugin.Media;
+using Xam.Plugins.OnDeviceCustomVision;
+using Android.Content.Res;
 
 namespace TestApp1.Droid
 {
@@ -21,11 +23,14 @@ namespace TestApp1.Droid
 
             base.OnCreate(savedInstanceState);
 
-            await CrossMedia.Current.Initialize(); 
+            await CrossMedia.Current.Initialize();
 
+            
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            AndroidImageClassifier.Init("model.pb", "labels.txt");
+            
             LoadApplication(new App());
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
@@ -34,6 +39,5 @@ namespace TestApp1.Droid
             Plugin.Permissions.PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-
     }
 }
