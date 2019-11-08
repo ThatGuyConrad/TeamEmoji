@@ -5,21 +5,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="TestApp1.MainPage">
+    <ScrollView>
+        <StackLayout>
+            <!-- Place new controls here -->
+            <StackLayout Spacing="10" Padding="10">
+                <Button x:Name="takePhoto" Text="Take Photo"/>
+                <Button x:Name="pickPhoto" Text="Pick Photo"/>
+                <Label Text="Save to Gallery"/>
+                <Switch x:Name="saveToGallery" IsToggled="false" HorizontalOptions="Center"/>
+                <Entry Text="Prediction Result" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" />
+                <Label x:Name="resultInfo" />
+                <Label x:Name="info" Text="Image will show here" />
+                <Image x:Name="image"/>
+                <Label Text=""/>
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <StackLayout Spacing="10" Padding="10">
-            <Button x:Name="takePhoto" Text="Take Photo"/>
-            <Button x:Name="pickPhoto" Text="Pick Photo"/>
-            <Label Text="Save to Gallery"/>
-            <Switch x:Name="saveToGallery" IsToggled="false" HorizontalOptions="Center"/>
-            <Entry Text="Prediction Result" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" />
-            <Label x:Name="resultInfo" />
-            <Label x:Name="info" Text="Image will show here" />
-            <Image x:Name="image"/>
-            <Label Text=""/>
-
+            </StackLayout>
         </StackLayout>
-    </StackLayout>
-
+    </ScrollView>
 </ContentPage>

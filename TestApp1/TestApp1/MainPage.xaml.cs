@@ -1,10 +1,12 @@
 ﻿using Android.Content.Res;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Plugin.Media;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using TestApp1.Class;
 using Xam.Plugins.OnDeviceCustomVision;
 using Xamarin.Forms;
 
@@ -16,6 +18,19 @@ namespace TestApp1
     {
         public MainPage()
         {
+            List<Part> parts = new List<Part>();
+            parts.Add(new Part("2780", 0, 95, 10));
+            parts.Add(new Part("6536", 71, 8, 0));
+            parts.Add(new Part("6558", 1, 38, 10));
+            parts.Add(new Part("32034", 4, 6, 10));
+            parts.Add(new Part("32054", 4, 10, 20));
+            parts.Add(new Part("32523", 0, 12, 17));
+            parts.Add(new Part("42003", 4, 14, 10));
+            parts.Add(new Part("43093", 1, 28, 19));
+            parts.Add(new Part("54821", 4, 3, 10));
+            parts.Add(new Part("57585", 71, 1, 9));
+            
+
             InitializeComponent();
             
             takePhoto.Clicked += async (sender, args) =>
@@ -39,7 +54,9 @@ namespace TestApp1
                         return;
 
                     var tags = await CrossImageClassifier.Current.ClassifyImage(file.GetStream());
-                    //getPartInfo(tags.OrderByDescending(t => t.Probability).First().Tag);
+                    var partId = tags.OrderByDescending(t => t.Probability).First().Tag;
+                    Part p = parts.Find(t => t.partId == partId);
+                    getPartInfo(p);
                     //Loop through first three guesses
                     var n = 0;
                     info.Text = "";
@@ -84,7 +101,9 @@ namespace TestApp1
                         return;
 
                     var tags = await CrossImageClassifier.Current.ClassifyImage(file.GetStream());
-                    //getPartInfo(tags.OrderByDescending(t => t.Probability).First().Tag);
+                    var partId = tags.OrderByDescending(t => t.Probability).First().Tag;
+                    Part p = parts.Find(t => t.partId == partId);
+                    getPartInfo(p);
                     //Loop through first three guesses
                     var n = 0;
                     info.Text = "\n";
@@ -100,7 +119,6 @@ namespace TestApp1
 
                     stream = file.GetStream();
                     file.Dispose();
-
                     image.Source = ImageSource.FromStream(() => stream);
 
                 }
@@ -112,28 +130,10 @@ namespace TestApp1
             };
         }
 
-        private void getPartInfo(string partId)
+        private void getPartInfo(Part part)
         {
-            Part part;
-            info.Text = "before/before";
             
-            using (StreamReader r = new StreamReader("parts.json"))
-            {
-                info.Text = "before";
-                string json = r.ReadToEnd();
-                info.Text = "After";
-                List<Part> parts = JsonConvert.DeserializeObject<List<Part>>(json);
-                part = (Part)parts.Where(p => p.partId == partId);
-            }
             resultInfo.Text = "Part ID: " + part.partId + "\nColour: " + part.colour + "\nQuantity: " + part.quantity + "\nNumber of Photos: " + part.numPhotos;
-        }
-
-        private class Part
-        {
-            public string partId;
-            public int colour;
-            public int quantity;
-            public int numPhotos = 0;
         }
     }
 }
