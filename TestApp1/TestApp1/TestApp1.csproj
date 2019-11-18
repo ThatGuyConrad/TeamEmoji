@@ -28,4 +28,10 @@
   <ItemGroup>
     <Resource Include="parts.json" />
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="MainMenu.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>
